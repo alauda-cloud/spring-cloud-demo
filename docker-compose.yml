@@ -7,29 +7,12 @@ services:
       dockerfile: Dockerfile
     image: "alauda-cloud/java"
 
-  eureka:
-    container-name: alauda-eureka
-    build:
-      context: ./eureka/
-      dockerfile: Dockerfile
-    image: "alauda-cloud/eureka"
-    environment:
-      - SPRING_PROFILES_ACTIVE=dev
-    depends_on:
-      - baseimage
-    expose:
-      - "8761"
-    ports:
-      - "8761:8761"
-    networks:
-      - alauda-cloud
-
   config-server:
-    container-name: alauda-config-server
+    container_name: config-server
     build:
       context: ./config-server/
       dockerfile: Dockerfile
-    image: "alauda-cloud/eureka"
+    image: "alauda-cloud/config-server"
     environment:
       - SPRING_PROFILES_ACTIVE=dev
     depends_on:
@@ -41,6 +24,26 @@ services:
     networks:
       - alauda-cloud
 
+  eureka-server:
+    container_name: eureka-server
+    build:
+      context: ./eureka-server/
+      dockerfile: Dockerfile
+    image: "alauda-cloud/eureka-server"
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+    depends_on:
+      - baseimage
+    expose:
+      - "8761"
+    ports:
+      - "8761:8761"
+    networks:
+      - alauda-cloud
+    depends_on:
+      - config-server
+
 networks:
   alauda-cloud:
+    name: alauda-cloud
     driver: bridge
