@@ -17,8 +17,6 @@ services:
       - SPRING_PROFILES_ACTIVE=dev
     depends_on:
       - baseimage
-    expose:
-      - "8001"
     ports:
       - "8001:8080"
     networks:
@@ -34,8 +32,6 @@ services:
       - SPRING_PROFILES_ACTIVE=dev
     depends_on:
       - baseimage
-    expose:
-      - "8761"
     ports:
       - "8761:8761"
     networks:
@@ -68,10 +64,8 @@ services:
       - SPRING_PROFILES_ACTIVE=dev
     depends_on:
       - baseimage
-    expose:
-      - "8002"
     ports:
-      - "8002:8002"
+      - "8002:8080"
     networks:
       - alauda-cloud
     depends_on:

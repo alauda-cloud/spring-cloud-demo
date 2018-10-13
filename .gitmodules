@@ -10,6 +10,3 @@
 [submodule "oauth2-server"]
 	path = oauth2-server
 	url = https://github.com/alauda-cloud/oauth2-server.git
-[submodule "alauda-cloud-starter-config-client"]
-	path = alauda-cloud-starter-config-client
-	url = https://github.com/alauda-cloud/alauda-cloud-starter-config-client.git
