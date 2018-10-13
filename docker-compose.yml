@@ -43,6 +43,44 @@ services:
     depends_on:
       - config-server
 
+  mysql:
+    container_name: "mysql"
+    image: "mysql"
+    expose:
+      - "3306"
+    ports:
+      - "3316:3306"
+    networks:
+      - alauda-cloud
+    volumes:
+      - mysql-data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root123456
+      - MYSQL_DATABASE=spring_cloud_demo
+
+  oauth2-server:
+    container_name: oauth2-server
+    build:
+      context: ./oauth2-server/
+      dockerfile: Dockerfile
+    image: "alauda-cloud/oauth2-server"
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+    depends_on:
+      - baseimage
+    expose:
+      - "8002"
+    ports:
+      - "8002:8002"
+    networks:
+      - alauda-cloud
+    depends_on:
+      - mysql
+      - config-server
+
+volumes:
+  mysql-data:
+
 networks:
   alauda-cloud:
     name: alauda-cloud
