@@ -1,0 +1,6 @@
+[submodule "eureka-server"]
+	path = eureka-server
+	url = https://github.com/alauda-cloud/eureka-server.git
+[submodule "config-server"]
+	path = config-server
+	url = https://github.com/alauda-cloud/config-server.git
