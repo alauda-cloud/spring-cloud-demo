@@ -19,3 +19,9 @@
 [submodule "user-service"]
 	path = user-service
 	url = https://github.com/alauda-cloud/user-service.git
+[submodule "todo-service"]
+	path = todo-service
+	url = https://github.com/alauda-cloud/todo-service.git
+[submodule "project-service"]
+	path = project-service
+	url = https://github.com/alauda-cloud/project-service.git

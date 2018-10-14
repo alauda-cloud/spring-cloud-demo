@@ -112,6 +112,48 @@ services:
       - alauda-cloud
     mem_limit: 512M
 
+  todo-service:
+    container_name: todo-service
+    build:
+      context: ./todo-service/
+      dockerfile: Dockerfile
+    image: "alauda-cloud/todo-service"
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - JAVA_OPTS=-Xmx480m
+    depends_on:
+      - baseimage
+      - mysql
+      - rabbitmq
+      - eureka-server
+      - config-server
+    ports:
+      - "8004:8080"
+    networks:
+      - alauda-cloud
+    mem_limit: 512M
+
+  project-service:
+    container_name: project-service
+    build:
+      context: ./project-service/
+      dockerfile: Dockerfile
+    image: "alauda-cloud/project-service"
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - JAVA_OPTS=-Xmx480m
+    depends_on:
+      - baseimage
+      - mysql
+      - rabbitmq
+      - eureka-server
+      - config-server
+    ports:
+      - "8005:8080"
+    networks:
+      - alauda-cloud
+    mem_limit: 512M
+
 volumes:
   mysql-data:
 

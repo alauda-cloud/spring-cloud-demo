@@ -30,6 +30,7 @@
         <guava.version>23.0</guava.version>
         <lombok.version>1.14.8</lombok.version>
         <spring.retry.version>1.2.2.RELEASE</spring.retry.version>
+        <feign.okHttp.version>10.0.1</feign.okHttp.version>
         <database.host>127.0.0.1</database.host>
         <database.port>3316</database.port>
         <database.username>root</database.username>
@@ -49,6 +50,8 @@
         <module>alauda-cloud-microservice</module>
         <module>alauda-cloud-starter-microservice</module>
         <module>user-service</module>
+        <module>todo-service</module>
+        <module>project-service</module>
     </modules>
 
     <dependencyManagement>
@@ -125,6 +128,13 @@
                  <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
+            </dependency>
+
+            <!--FeignClient使用OKHttpClient-->
+            <dependency>
+                <groupId>io.github.openfeign</groupId>
+                <artifactId>feign-okhttp</artifactId>
+                <version>${feign.okHttp.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
