@@ -52,6 +52,7 @@
         <module>user-service</module>
         <module>todo-service</module>
         <module>project-service</module>
+        <module>message-service</module>
     </modules>
 
     <dependencyManagement>

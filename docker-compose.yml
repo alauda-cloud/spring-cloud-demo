@@ -154,6 +154,27 @@ services:
       - alauda-cloud
     mem_limit: 512M
 
+  message-service:
+    container_name: message-service
+    build:
+      context: ./message-service/
+      dockerfile: Dockerfile
+    image: "alauda-cloud/message-service"
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - JAVA_OPTS=-Xmx480m
+    depends_on:
+      - baseimage
+      - mysql
+      - rabbitmq
+      - eureka-server
+      - config-server
+    ports:
+      - "8006:8080"
+    networks:
+      - alauda-cloud
+    mem_limit: 512M
+
 volumes:
   mysql-data:
 

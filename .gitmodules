@@ -25,3 +25,6 @@
 [submodule "project-service"]
 	path = project-service
 	url = https://github.com/alauda-cloud/project-service.git
+[submodule "message-service"]
+	path = message-service
+	url = https://github.com/alauda-cloud/message-service.git
