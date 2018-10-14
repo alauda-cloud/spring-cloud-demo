@@ -46,10 +46,23 @@
         <module>config-server</module>
         <module>eureka-server</module>
         <module>oauth2-server</module>
+        <module>alauda-cloud-microservice</module>
+        <module>alauda-cloud-starter-microservice</module>
+        <module>user-service</module>
     </modules>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>alauda-cloud</groupId>
+                <artifactId>alauda-cloud-microservice</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>alauda-cloud</groupId>
+                <artifactId>alauda-cloud-starter-microservice</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
             <!--spring cloud -->
             <dependency>

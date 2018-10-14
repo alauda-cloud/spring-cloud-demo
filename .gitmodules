@@ -10,3 +10,12 @@
 [submodule "oauth2-server"]
 	path = oauth2-server
 	url = https://github.com/alauda-cloud/oauth2-server.git
+[submodule "alauda-cloud-starter-microservice"]
+	path = alauda-cloud-starter-microservice
+	url = https://github.com/alauda-cloud/alauda-cloud-starter-microservice.git
+[submodule "alauda-cloud-microservice"]
+	path = alauda-cloud-microservice
+	url = https://github.com/alauda-cloud/alauda-cloud-microservice.git
+[submodule "user-service"]
+	path = user-service
+	url = https://github.com/alauda-cloud/user-service.git

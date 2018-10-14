@@ -1,4 +1,4 @@
-version: "3.6"
+version: "2.4"
 
 services:
   baseimage:
@@ -6,38 +6,6 @@ services:
       context: ./base-image/
       dockerfile: Dockerfile
     image: "alauda-cloud/java"
-
-  config-server:
-    container_name: config-server
-    build:
-      context: ./config-server/
-      dockerfile: Dockerfile
-    image: "alauda-cloud/config-server"
-    environment:
-      - SPRING_PROFILES_ACTIVE=dev
-    depends_on:
-      - baseimage
-    ports:
-      - "8001:8080"
-    networks:
-      - alauda-cloud
-
-  eureka-server:
-    container_name: eureka-server
-    build:
-      context: ./eureka-server/
-      dockerfile: Dockerfile
-    image: "alauda-cloud/eureka-server"
-    environment:
-      - SPRING_PROFILES_ACTIVE=dev
-    depends_on:
-      - baseimage
-    ports:
-      - "8761:8761"
-    networks:
-      - alauda-cloud
-    depends_on:
-      - config-server
 
   mysql:
     container_name: "mysql"
@@ -53,6 +21,55 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=root123456
       - MYSQL_DATABASE=spring_cloud_demo
+    mem_limit: 1G
+
+  rabbitmq:
+    image: "rabbitmq:management"
+    container_name: "rabbitmq"
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - alauda-cloud
+    environment:
+      - RABBITMQ_DEFAULT_USER=rabbit
+      - RABBITMQ_DEFAULT_PASS=rabbit1234
+    mem_limit: 512M
+
+  eureka-server:
+    container_name: eureka
+    build:
+      context: ./eureka-server/
+      dockerfile: Dockerfile
+    image: "alauda-cloud/eureka-server"
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - JAVA_OPTS=-Xmx480m
+    depends_on:
+      - baseimage
+    ports:
+      - "8761:8761"
+    networks:
+      - alauda-cloud
+    mem_limit: 512M
+
+  config-server:
+    container_name: config-server
+    build:
+      context: ./config-server/
+      dockerfile: Dockerfile
+    image: "alauda-cloud/config-server"
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - JAVA_OPTS=-Xmx480m
+    depends_on:
+      - baseimage
+      - eureka-server
+    ports:
+      - "8001:8080"
+    networks:
+      - alauda-cloud
+    mem_limit: 512M
 
   oauth2-server:
     container_name: oauth2-server
@@ -62,15 +79,38 @@ services:
     image: "alauda-cloud/oauth2-server"
     environment:
       - SPRING_PROFILES_ACTIVE=dev
+      - JAVA_OPTS=-Xmx480m
     depends_on:
       - baseimage
+      - mysql
+      - eureka-server
+      - config-server
     ports:
       - "8002:8080"
     networks:
       - alauda-cloud
+    mem_limit: 512M
+
+  user-service:
+    container_name: user-service
+    build:
+      context: ./user-service/
+      dockerfile: Dockerfile
+    image: "alauda-cloud/user-service"
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - JAVA_OPTS=-Xmx480m
     depends_on:
+      - baseimage
       - mysql
+      - rabbitmq
+      - eureka-server
       - config-server
+    ports:
+      - "8003:8080"
+    networks:
+      - alauda-cloud
+    mem_limit: 512M
 
 volumes:
   mysql-data:
